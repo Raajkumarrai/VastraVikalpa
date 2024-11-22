@@ -22,6 +22,7 @@ const UserData = ({
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("E-Sewa");
 
   const handlePlaceOrder = () => {
+    console.log("Selected Payment Method:", selectedPaymentMethod); // Debugging
     if (selectedPaymentMethod === "E-Sewa") {
       placeOrderBtnclk("esewa");
     } else if (selectedPaymentMethod === "Cash on Delivery") {

@@ -98,7 +98,6 @@ route.get("/product/orders/eachuser", fetchUser, async (req, res) => {
 route.post("/product/order", fetchUser, async (req, res) => {
   try {
     const { products, detailId, billing, COD } = req.body;
-    console.log(COD);
     const userId = req.user.id;
 
     // Check if user exists

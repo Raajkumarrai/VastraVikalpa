@@ -168,36 +168,39 @@ const ProductState = (props) => {
 
   const navigate = useNavigate();
 
-  const finalOrderDeliver = async (data, isnstant, COD) => {
-    if (COD) {
-      await postOrderData({ ...data, COD: true });
+  const finalOrderDeliver = async (data, instant, COD) => {
+    try {
+      if (COD) {
+        await postOrderData({ ...data, COD: true });
+        navigate("/Success"); // Navigate to success page for COD
+        return;
+      } else {
+        const resData = await postOrderData({ ...data, COD: false });
+        if (resData?.data) {
+          const path = "https://uat.esewa.com.np/epay/main";
+          let params = {
+            amt: resData.data.totalPrice - 100,
+            psc: 0,
+            pdc: 100,
+            txAmt: 0,
+            tAmt: resData.data.totalPrice,
+            pid: resData.data._id,
+            scd: "EPAYTEST",
+            su: "http://localhost:3000/esewa_payment_success",
+            fu: "http://localhost:3000/esewa_payment_failed",
+          };
 
-      navigate("/Success");
-    } else {
-      const resData = await postOrderData({ ...data, COD: false });
-      if (resData.data) {
-        const path = "https://uat.esewa.com.np/epay/main";
-        let params = {
-          amt: resData.data.totalPrice - 100,
-          psc: 0,
-          pdc: 100,
-          txAmt: 0,
-          tAmt: resData.data.totalPrice,
-          pid: resData.data?._id,
-          scd: "EPAYTEST",
-          su: "http://localhost:3000/esewa_payment_success",
-          fu: "http://localhost:3000/esewa_payment_failed",
-        };
-
-        PaymentPost(path, params);
+          PaymentPost(path, params); // Trigger eSewa payment
+          setRender((p) => !p);
+          if (!instant) {
+            setTimeout(() => {
+              setOrderData([]);
+            }, 3000);
+          }
+        }
       }
-    }
-
-    setRender((p) => !p);
-    if (!isnstant) {
-      setTimeout(() => {
-        setOrderData([]);
-      }, 3000);
+    } catch (error) {
+      console.error("Error in finalOrderDeliver:", error);
     }
   };
 
@@ -205,7 +208,6 @@ const ProductState = (props) => {
     if (!COD) {
       if (isOrderNow) {
         let finaldata = { ...data, products: orderNowData };
-        console.log(finaldata);
         setFinalPostData(finaldata);
         finalOrderDeliver(finaldata, true, false);
       } else {
@@ -217,7 +219,6 @@ const ProductState = (props) => {
     } else {
       if (isOrderNow) {
         let finaldata = { ...data, products: orderNowData };
-        console.log(finaldata);
         setFinalPostData(finaldata);
         finalOrderDeliver(finaldata, true, true);
       } else {

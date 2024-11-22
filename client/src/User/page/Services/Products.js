@@ -91,7 +91,7 @@ const Products = ({
         </>
       ) : (
         <h3 className="w-full text-center mt-32 text-xl font-poppins text-gray-500 font-semibold">
-          Sorry!!! Product Not Found
+          Sorry!!! Products Are Not Available Now.
         </h3>
       )}
       {maxPage > 1 && (

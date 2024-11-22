@@ -68,51 +68,53 @@ const Checkout = ({ finalTable }) => {
 
   const placeOrderBtnclk = async (paymentMethod) => {
     if (paymentMethod === "esewa") {
-      // if (validateForm()) {
-      let addressId = "";
-      if (!showAddress) {
-        let res = await postOrderAddresses(deliveryData);
-        addressId = res?.addId;
-        setRender((p) => !p);
-      } else {
-        addressId = oneUserAddress._id;
+      if (validateForm()) {
+        let addressId = "";
+        if (!showAddress) {
+          let res = await postOrderAddresses(deliveryData);
+          addressId = res?.addId;
+          setRender((p) => !p);
+        } else {
+          addressId = oneUserAddress._id;
+        }
+        const result = finalTable.map((item) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+        }));
+
+        const orderFinal = {
+          products: result,
+          detailId: addressId,
+          // billing: false,
+        };
+
+        finalOrder(orderFinal, false);
+        return;
       }
-      const result = finalTable.map((item) => ({
-        productId: item.productId,
-        quantity: item.quantity,
-      }));
-
-      const orderFinal = {
-        products: result,
-        detailId: addressId,
-        // billing: false,
-      };
-
-      finalOrder(orderFinal, false);
-      // }
     } else {
-      // if (validateForm()) {
-      let addressId = "";
-      if (!showAddress) {
-        let res = await postOrderAddresses(deliveryData);
-        addressId = res?.addId;
-        setRender((p) => !p);
-      } else {
-        addressId = oneUserAddress._id;
-      }
-      const result = finalTable.map((item) => ({
-        productId: item.productId,
-        quantity: item.quantity,
-      }));
+      if (validateForm()) {
+        let addressId = "";
+        if (!showAddress) {
+          let res = await postOrderAddresses(deliveryData);
+          addressId = res?.addId;
+          setRender((p) => !p);
+        } else {
+          addressId = oneUserAddress._id;
+        }
+        const result = finalTable.map((item) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+        }));
 
-      const orderFinal = {
-        products: result,
-        detailId: addressId,
-        // billing: false,
-      };
-      finalOrder(orderFinal, true);
+        const orderFinal = {
+          products: result,
+          detailId: addressId,
+          // billing: false,
+        };
+
+        finalOrder(orderFinal, true);
+      }
     }
-    // }
   };
 
   const validateForm = () => {

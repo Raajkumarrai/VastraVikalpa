@@ -79,7 +79,6 @@ const EachSiteDescription = ({ data }) => {
     if (userdataLocal == null) {
       navigate("/login");
     } else {
-      console.log(userdataLocal);
       let userId = JSON.parse(localStorage.getItem("data"))?._id;
       if (!userId) {
         navigate("/login");
@@ -100,8 +99,6 @@ const EachSiteDescription = ({ data }) => {
     if (userdataLocal == null) {
       navigate("/login");
     } else {
-      console.log(userdataLocal);
-
       let price =
         data.price * productQuantity -
         (data.price * productQuantity * data.discount) / 100;
@@ -205,7 +202,7 @@ const EachSiteDescription = ({ data }) => {
           </>
         </div>
       </div>
-      <div
+      {/* <div
         onClick={likeBtnPress}
         className={`absolute flex gap-2 items-end font-semibold justify-center top-0 ${liked.likedBool ? "text-blue-700" : "text-black/80"}  cursor-pointer right-10 text-xl`}
       >
@@ -213,7 +210,7 @@ const EachSiteDescription = ({ data }) => {
           <div className="text-xs">{liked.likeNumber}</div>
         )}
         <FaHeart />
-      </div>
+      </div> */}
     </div>
   );
 };

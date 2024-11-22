@@ -240,8 +240,6 @@ export default function ModalApp(props) {
         subCategoryId: finalData.subCategoryId || "",
       };
 
-      console.log(finalDataAfterSubcat);
-
       // return;
       if (updateData.status) {
         handelUpdate({ ...finalDataAfterSubcat, id: updateData.data._id });
