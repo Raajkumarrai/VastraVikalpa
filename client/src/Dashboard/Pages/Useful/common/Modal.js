@@ -42,7 +42,6 @@ export default function ModalFun(props) {
     setProductOne(data);
     setProdutNumber(ind);
   };
-  console.log(viewDetal);
 
   return (
     <>

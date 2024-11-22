@@ -137,7 +137,9 @@ export default function TableOrder(props) {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.product?.title.toLowerCase().includes(filterValue.toLowerCase())
+        user.products[0].productId?.title
+          .toLowerCase()
+          .includes(filterValue.toLowerCase())
       );
     }
 

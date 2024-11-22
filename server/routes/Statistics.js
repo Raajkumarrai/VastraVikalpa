@@ -169,7 +169,7 @@ router.get("/total-revenue/thismonth", checkPrivilege, async (req, res) => {
       {
         $match: {
           orderSuccess: { $gte: 0 },
-          billing: true,
+
           updateData: { $gte: firstDayOfMonth, $lte: lastDayOfMonth },
         },
       },
@@ -185,7 +185,6 @@ router.get("/total-revenue/thismonth", checkPrivilege, async (req, res) => {
       {
         $match: {
           orderSuccess: { $gte: 0 },
-          billing: false,
           updateData: { $gte: startOfToday, $lt: endOfToday },
         },
       },
@@ -201,7 +200,6 @@ router.get("/total-revenue/thismonth", checkPrivilege, async (req, res) => {
       {
         $match: {
           orderSuccess: { $gte: 0 },
-          billing: false,
           updateData: { $gte: startOfThisWeek, $lt: endOfThisWeek },
         },
       },
@@ -268,7 +266,6 @@ router.get("/monthly-revenue", async (req, res) => {
           {
             $match: {
               orderSuccess: { $gte: 0 },
-              billing: false,
               updateData: { $gte: firstDayOfMonth, $lte: lastDayOfMonth },
             },
           },
@@ -280,7 +277,10 @@ router.get("/monthly-revenue", async (req, res) => {
           },
         ]).then((totalRevenue) => ({
           name: month,
-          Total: totalRevenue.length > 0 ? totalRevenue[0].totalRevenue : 0,
+          Total:
+            totalRevenue.length > 0
+              ? totalRevenue[0].totalRevenue.toFixed(2)
+              : 0,
         }));
       })
     );
@@ -330,7 +330,6 @@ router.get("/monthly-data/barchart", async (req, res) => {
         const totalOrders = Order.countDocuments({
           date: { $gte: firstDayOfMonth, $lte: lastDayOfMonth },
           orderSuccess: 0,
-          billing: true,
         });
 
         const totalDelivered = Order.countDocuments({
