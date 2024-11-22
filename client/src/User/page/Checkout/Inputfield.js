@@ -5,7 +5,7 @@ const Inputfield = ({ deliveryData, inputvalueChange, errors }) => {
   return (
     <div>
       <div className="flex flex-col gap-5">
-        <div className="flex gap-4 flex-wrap">
+        <div className="flex gap-4 ">
           <div className="w-full md:w-1/2">
             <Input
               type="text"
@@ -38,7 +38,7 @@ const Inputfield = ({ deliveryData, inputvalueChange, errors }) => {
           </div>
         </div>
 
-        <div className="flex gap-4 flex-wrap">
+        <div className="flex gap-4 ">
           <div className="w-full md:w-1/2">
             <Input
               type="number"
@@ -71,7 +71,7 @@ const Inputfield = ({ deliveryData, inputvalueChange, errors }) => {
           </div>
         </div>
 
-        <div className="flex gap-4 flex-wrap">
+        <div className="flex gap-4 ">
           <div className="w-full md:w-1/2">
             <Input
               type="text"
@@ -104,7 +104,7 @@ const Inputfield = ({ deliveryData, inputvalueChange, errors }) => {
           </div>
         </div>
 
-        <div className="flex gap-4 flex-wrap">
+        <div className="flex gap-4 ">
           <div className="w-full md:w-1/2">
             <Input
               type="text"
