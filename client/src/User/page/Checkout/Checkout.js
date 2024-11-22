@@ -66,8 +66,6 @@ const Checkout = ({ finalTable }) => {
     // eslint-disable-next-line
   }, [oneUserAddress]);
 
-  console.log(deliveryData);
-
   const placeOrderBtnclk = async (paymentMethod) => {
     if (paymentMethod === "esewa") {
       if (validateForm()) {
