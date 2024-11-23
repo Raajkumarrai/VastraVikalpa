@@ -82,8 +82,6 @@ route.get("/product/orders/eachuser", fetchUser, async (req, res) => {
     const uId = req.user.id;
     const orders = await Order.find({
       userId: uId,
-      billing: true,
-      billingRef: { $exists: true },
     })
       .populate("products.productId")
       .populate("userId")
