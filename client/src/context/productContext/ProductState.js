@@ -103,8 +103,11 @@ const ProductState = (props) => {
   };
 
   useEffect(() => {
-    fetchOrderAddresses();
     fetchOrderData();
+  }, []);
+
+  useEffect(() => {
+    fetchOrderAddresses();
   }, [render]);
   const [finalPostData, setFinalPostData] = useState({});
   const [isOrderNow, setIsOrderNow] = useState(false);
