@@ -4,6 +4,11 @@ import { Link } from "react-router-dom";
 import URLConverter from "../../../libs/URLConverter";
 
 const EachCategory = ({ data }) => {
+  // Don't render if the category has no products
+  if (!data?.productCount || data.productCount <= 0) {
+    return null;
+  }
+
   return (
     <Card
       isPressable
